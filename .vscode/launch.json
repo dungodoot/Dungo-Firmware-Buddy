@@ -167,6 +167,7 @@
         },
         {
             "name": "Launch Simulator",
+            "showDevDebugOutput": "raw",
             "type": "cortex-debug",
             "servertype": "qemu",
             "serverpath": "${workspaceRoot}/.venv/bin/simulator_as_qemu",

@@ -1017,6 +1017,9 @@ private:
     static void R(const uint8_t machine_index);
   #endif
 
+  #if ENABLED(SERIAL_UI)
+    static void U0();
+  #endif
 };
 
 extern GcodeSuite gcode;

@@ -2485,3 +2485,8 @@
  * Enable PID autotune
  **/
 //#define PID_AUTOTUNE
+
+/**
+ * Enable UI control over USB Serial
+ **/
+#define SERIAL_UI

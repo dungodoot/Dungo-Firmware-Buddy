@@ -101,6 +101,7 @@ void SelftestFrameWizardPrologue::change() {
 
     if (txt) {
         text_full_frame.Show();
+        SERIAL_ECHOLN(txt); // DUNGO WIP
         text_full_frame.SetText(_(txt));
     } else {
         text_full_frame.Hide();
@@ -108,6 +109,7 @@ void SelftestFrameWizardPrologue::change() {
 
     if (txt_icon) {
         text_icon.Show();
+        SERIAL_ECHOLN(txt_icon); // DUNGO WIP
         text_icon.SetText(_(txt_icon));
     } else {
         text_icon.Hide();

@@ -6,6 +6,9 @@
 #include "client_response_texts.hpp"
 #include "GuiDefaults.hpp"
 #include "img_resources.hpp"
+#ifdef SERIAL_UI
+    #include "feature/serial_ui.h"
+#endif
 
 /*****************************************************************************/
 // Icon + Text layout adjusting tool
@@ -379,7 +382,27 @@ Response MsgBoxBuilder::exec() const {
             msgbox.set_title_alignment(Align_t::Center());
         }
 
+#ifdef SERIAL_UI
+        std::function<void()> loop_callback = [&] {
+            if (msgbox_done == true) {
+                if ((uint8_t)responses[msgbox_response] == 0) {
+                    msgbox_done = false;
+                    SERIAL_ECHO_START();
+                    SERIAL_ECHOLN("got invalid response");
+                } else {
+                    Screens::Access()->Close();
+                }
+            }
+        };
+#endif
+        msgbox_done = false;
         msgbox.MakeBlocking(loop_callback);
+#ifdef SERIAL_UI
+        if (msgbox_done) {
+            msgbox_done = false;
+            return responses[msgbox_response];
+        }
+#endif
         return msgbox.GetResult();
     };
 
@@ -415,6 +438,20 @@ Response MsgBoxBuilder::exec() const {
 }
 
 Response msg_box(MsgBoxType type, string_view_utf8 txt, const PhaseResponses &resp, MsgBoxDefaultButton default_button) {
+#ifdef SERIAL_UI
+    const uint32_t MAX_TEXT_BUFFER = 128;
+    char buffer[MAX_TEXT_BUFFER] = { 0 };
+    txt.copyToRAM(buffer, MAX_TEXT_BUFFER - 1);
+    SERIAL_ECHOLN(buffer); // DUNGO WIP
+    SERIAL_ECHO((uint8_t)resp[0]);
+    SERIAL_ECHOLN(BtnResponse::GetText(resp[0]));
+    SERIAL_ECHO((uint8_t)resp[1]);
+    SERIAL_ECHOLN(BtnResponse::GetText(resp[1]));
+    SERIAL_ECHO((uint8_t)resp[2]);
+    SERIAL_ECHOLN(BtnResponse::GetText(resp[2]));
+    SERIAL_ECHO((uint8_t)resp[3]);
+    SERIAL_ECHOLN(BtnResponse::GetText(resp[3]));
+#endif
     return MsgBoxBuilder {
         .type = type,
         .text = txt,

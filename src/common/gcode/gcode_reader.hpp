@@ -157,6 +157,8 @@ public:
 
 protected:
     inline void set_error(const char *msg) {
+        SERIAL_ECHOLN("set_error");
+        SERIAL_ECHOLN(msg); // DUNGO WIP
         assert(msg);
         error_str_ = msg;
     }

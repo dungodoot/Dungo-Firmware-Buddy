@@ -138,6 +138,9 @@ void GCodeParser::parse(char *p) {
   switch (letter) {
 
     case 'G': case 'M': case 'T': case 'P':
+#if ENABLED(SERIAL_UI)
+    case 'U':
+#endif
 #if ENABLED(REDIRECT_GCODE_SUPPORT)
     case 'R':
 #endif

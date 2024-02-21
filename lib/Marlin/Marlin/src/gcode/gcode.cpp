@@ -932,6 +932,12 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       case 'R': R(parser.codenum); break;                           // Rn: Redirect command
     #endif
 
+    #if ENABLED(SERIAL_UI)
+      case 'U': switch (parser.codenum) {
+        case 0: U0(); break;
+      } break;
+    #endif
+
     default:
       parser.unknown_command_error();
   }

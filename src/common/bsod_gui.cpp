@@ -280,6 +280,11 @@ void _bsod(const char *fmt, const char *file_name, int line_number, ...) {
     vsnprintf(msg, std::size(msg), fmt, args);
     va_end(args);
 
+    // DUNGO
+    SERIAL_ECHOLN("_bsod() triggered"); // DUNGO WIP
+    SERIAL_ECHOLN(title); // DUNGO WIP
+    SERIAL_ECHOLN(msg); // DUNGO WIP
+
     // Save file, line and meessage
     crash_dump::save_message(crash_dump::MsgType::BSOD, ftrstd::to_underlying(ErrCode::ERR_UNDEF), msg, title);
 

@@ -245,6 +245,10 @@ if(BOARD MATCHES ".*BUDDY")
   endif()
 endif()
 
+target_sources(
+  Marlin PRIVATE Marlin/Marlin/src/feature/serial_ui.cpp Marlin/Marlin/src/gcode/serialui/U0.cpp
+  )
+
 target_compile_features(Marlin PUBLIC cxx_std_17)
 target_include_directories(
   Marlin PUBLIC Marlin/Marlin/src Marlin/Marlin/src/gcode/lcd Marlin/Marlin Marlin

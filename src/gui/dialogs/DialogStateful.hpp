@@ -103,6 +103,7 @@ protected:
         }
 
         progress.SetValue(deserialize_progress(data));
+        SERIAL_ECHOLN(deserialize_progress(data)); // DUNGO WIP
         return true;
     }
 
@@ -118,6 +119,11 @@ protected:
 
         radio.Change(*current_phase /*, states[phase].btn_resp, &states[phase].btn_labels*/); // TODO alternative button label support
         label.SetText(_(get_current_state().label));
+
+        SERIAL_ECHOLN(get_current_state().label); // DUNGO WIP
+        // SERIAL_ECHOLN(states.btn_resp);
+        // SERIAL_ECHOLN(states.btn_labels);
+
         if (get_current_state().onEnter) {
             get_current_state().onEnter();
         }
