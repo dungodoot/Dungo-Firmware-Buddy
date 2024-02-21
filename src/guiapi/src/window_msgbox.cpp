@@ -394,8 +394,8 @@ Response MsgBoxBuilder::exec() const {
                 }
             }
         };
-#endif
         msgbox_done = false;
+#endif
         msgbox.MakeBlocking(loop_callback);
 #ifdef SERIAL_UI
         if (msgbox_done) {
